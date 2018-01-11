@@ -5,27 +5,26 @@ require "../src/discordcr"
 # Make sure to replace this fake data with actual data when running.
 client = Discord::Client.new(token: "Bot MjI5NDU5NjgxOTU1NjUyMzM3.Cpnz31.GQ7K9xwZtvC40y8MPY3eTqjEIXm", client_id: 229459681955652337_u64)
 cache = Discord::Cache.new(client)
-client.cache = cache
 
-welcome_channel = 0_u64
+welcome_channel = nil
 
 client.on_message_create do |payload|
   # Here we take for example "#welcome", "#general" or some other channel as the argument and then we put the ID of it into welcome_channel.
-  if payload.content.starts_with? "!setwelcome"
-    welcome_channel = payload.content.split(" ")[1][2..-2].to_u64
+  if match = payload.content.match(/\!setwelcome <#(?<id>\d+)>/)
+    welcome_channel = match["id"].to_u64
+    client.create_message(payload.channel_id, "Successfully set a welcome channel.")
+  elsif payload.content.starts_with?("!setwelcome")
+    client.create_message(payload.channel_id, "Please specify a valid welcome channel.")
   end
 end
 
 client.on_guild_member_add do |payload|
-  # Break up if the welcome_channel isn't set yet.
-  if welcome_channel==0
-    next
+  if id = welcome_channel
+    # Get the guild/server information.
+    guild = cache.resolve_guild(payload.guild_id)
+
+    client.create_message(id, "Please welcome <@#{payload.user.id}> to #{guild.name}.")
   end
-
-  # Get the guild/server information.
-  guild = cache.resolve_guild(payload.guild_id)
-
-  client.create_message(welcome_channel, "Please welcome <@#{payload.user.id}> to #{guild.name}.")
 end
 
 client.run
