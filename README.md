@@ -1,4 +1,4 @@
-[![docs](https://img.shields.io/badge/docs-latest-green.svg)](https://meew0.github.io/discordcr/doc/master/)
+[![docs](https://img.shields.io/badge/docs-latest-green.svg)](https://meew0.github.io/discordcr/doc/v0.3.0/)
 
 # discordcr
 
@@ -69,7 +69,7 @@ user = cache.resolve_user(66237334693085184_u64) # won't do a request to Discord
 puts user.username
 ```
 
-Apart from this, API documentation is also available, at https://meew0.github.io/discordcr/doc/master/.
+Apart from this, API documentation is also available, at https://meew0.github.io/discordcr/doc/v0.3.0/.
 
 ## Contributing
 
