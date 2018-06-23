@@ -119,7 +119,7 @@ client.on_voice_server_update do |payload|
   begin
     vc = voice_client = Discord::VoiceClient.new(payload, client.session.not_nil!, current_user_id.not_nil!)
     vc.on_ready do
-      client.create_message(connect_channel_id.value.not_nil!, "Voice connected.")
+      client.create_message(connect_channel_id.not_nil!, "Voice connected.")
     end
     vc.run
   rescue ex
