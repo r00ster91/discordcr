@@ -21,7 +21,7 @@ connect_channel_id = nil
 voice_client = nil
 
 client.on_ready do |payload|
-  current_user_id = payload.user.id
+  current_user_id = payload.user.id.value
 end
 
 client.on_message_create do |payload|
@@ -32,8 +32,8 @@ client.on_message_create do |payload|
     # Parse the command arguments
     ids = payload.content[9..-1].split(' ').map(&.to_u64)
 
-    client.create_message(payload.channel_id, "Connecting...")
-    connect_channel_id = payload.channel_id
+    client.create_message(payload.channel_id.value, "Connecting...")
+    connect_channel_id = payload.channel_id.value
     client.voice_state_update(ids[0].to_u64, ids[1].to_u64, false, false)
   elsif payload.content.starts_with? "!play_dca "
     # Used as:
@@ -43,7 +43,7 @@ client.on_message_create do |payload|
     # (including metadata), otherwise playback will fail.
 
     unless voice_client
-      client.create_message(payload.channel_id, "Voice client is nil!")
+      client.create_message(payload.channel_id.value, "Voice client is nil!")
       next
     end
 
@@ -60,13 +60,13 @@ client.on_message_create do |payload|
     # it.
     if metadata = parser.metadata
       tool = metadata.dca.tool
-      client.create_message(payload.channel_id, "DCA file was created by #{tool.name}, version #{tool.version}.")
+      client.create_message(payload.channel_id.value, "DCA file was created by #{tool.name}, version #{tool.version}.")
 
       if info = metadata.info
-        client.create_message(payload.channel_id, "Song info: #{info.title} by #{info.artist}.") if info.title && info.artist
+        client.create_message(payload.channel_id.value, "Song info: #{info.title} by #{info.artist}.") if info.title && info.artist
       end
     else
-      client.create_message(payload.channel_id, "DCA file metadata is invalid!")
+      client.create_message(payload.channel_id.value, "DCA file metadata is invalid!")
     end
 
     # Set the bot as speaking (green circle). This is important and has to be
@@ -74,7 +74,7 @@ client.on_message_create do |payload|
     # will not know who the packets we're sending belongs to.
     voice_client.not_nil!.send_speaking(true)
 
-    client.create_message(payload.channel_id, "Playing DCA file `#{filename}`.")
+    client.create_message(payload.channel_id.value, "Playing DCA file `#{filename}`.")
 
     # For smooth audio streams Discord requires one packet every
     # 20 milliseconds. The `every` method measures the time it takes to run the
@@ -119,11 +119,11 @@ client.on_voice_server_update do |payload|
   begin
     vc = voice_client = Discord::VoiceClient.new(payload, client.session.not_nil!, current_user_id.not_nil!)
     vc.on_ready do
-      client.create_message(connect_channel_id.not_nil!, "Voice connected.")
+      client.create_message(connect_channel_id.value.not_nil!, "Voice connected.")
     end
     vc.run
-  rescue e
-    e.inspect_with_backtrace(STDOUT)
+  rescue ex
+    ex.inspect_with_backtrace(STDOUT)
   end
 end
 

@@ -8,10 +8,10 @@ cache = Discord::Cache.new(client)
 client.cache = cache
 
 client.on_guild_member_add do |payload|
-  # get the guild/server information
-  guild = cache.resolve_guild(payload.guild_id)
+  # Get the guild/server information
+  guild = cache.resolve_guild(payload.guild_id.value)
 
-  client.create_message(guild.id, "Please welcome <@#{payload.user.id}> to #{guild.name}.")
+  client.create_message(guild.id.value, "Please welcome <@#{payload.user.id.value}> to #{guild.name}.")
 end
 
 client.run

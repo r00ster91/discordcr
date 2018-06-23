@@ -34,7 +34,7 @@ dependencies:
 
 ## Usage
 
-An example bot can be found
+Example bots can be found
 [here](https://github.com/meew0/discordcr/blob/master/examples/ping.cr). More
 examples will come in the future.
 
