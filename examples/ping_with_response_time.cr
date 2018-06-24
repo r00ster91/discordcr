@@ -9,9 +9,9 @@ client = Discord::Client.new(token: "Bot MjI5NDU5NjgxOTU1NjUyMzM3.Cpnz31.GQ7K9xw
 client.on_message_create do |payload|
   if payload.content.starts_with? "!ping"
     # We first create a new Message, and then we check how long it took to send the message by comparing it to the current time
-    m = client.create_message(payload.channel_id.value, "Pong!")
+    m = client.create_message(payload.channel_id, "Pong!")
     time = payload.timestamp - Time.utc_now
-    client.edit_message(m.channel_id.value, m.id.value, "Pong! Time taken: #{time.total_milliseconds} ms.")
+    client.edit_message(m.channel_id, m.id, "Pong! Time taken: #{time.total_milliseconds} ms.")
   end
 end
 

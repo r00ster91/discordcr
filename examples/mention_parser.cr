@@ -37,11 +37,11 @@ client.on_message_create do |payload|
 
   begin
     client.create_message(
-      payload.channel_id.value,
+      payload.channel_id,
       mentions)
   rescue ex
     client.create_message(
-      payload.channel_id.value,
+      payload.channel_id,
       "`#{ex.inspect}`")
     raise ex
   end

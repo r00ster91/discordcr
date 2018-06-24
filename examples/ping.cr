@@ -7,7 +7,7 @@ client = Discord::Client.new(token: "Bot MjI5NDU5NjgxOTU1NjUyMzM3.Cpnz31.GQ7K9xw
 
 client.on_message_create do |payload|
   if payload.content.starts_with? "!ping"
-    client.create_message(payload.channel_id.value, "Pong!")
+    client.create_message(payload.channel_id, "Pong!")
   end
 end
 

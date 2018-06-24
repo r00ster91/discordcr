@@ -18,20 +18,20 @@ client.on_message_create do |payload|
   command = payload.content
   case command
   when PREFIX + "help"
-    client.create_message(client.create_dm(payload.author.id).id.value, "Help is on the way!")
+    client.create_message(client.create_dm(payload.author.id).id, "Help is on the way!")
   when PREFIX + "about"
     block = <<-BLOCK
     ```
     Bot developed by discordcr
     ```
     BLOCK
-    client.create_message(payload.channel_id.value, block)
+    client.create_message(payload.channel_id, block)
   when .starts_with? PREFIX + "echo"
     # !echo is a good example of a command with arguments (suffix)
     suffix = command.split(' ')[1..-1].join(' ')
-    client.create_message(payload.channel_id.value, suffix)
+    client.create_message(payload.channel_id, suffix)
   when PREFIX + "date"
-    client.create_message(payload.channel_id.value, Time.now.to_s("%D"))
+    client.create_message(payload.channel_id, Time.now.to_s("%D"))
   end
 end
 
