@@ -404,7 +404,7 @@ module Discord
         end
       end
 
-      if spoiler
+      if spoiler && !filename.starts_with?("SPOILER_")
         filename = "SPOILER_" + filename
       end
 
