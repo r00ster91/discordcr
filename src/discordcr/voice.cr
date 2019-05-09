@@ -89,7 +89,9 @@ module Discord
       @websocket.send(packet.to_json)
     end
 
-    # Plays a single opus packet
+    # Plays a single Opus packet.
+    #
+    # Use `Discord::OpusEncoder` for encoding PCM into an Opus packet.
     def play_opus(buf : Bytes)
       increment_packet_metadata
       @udp.send_audio(buf, @sequence, @time)
