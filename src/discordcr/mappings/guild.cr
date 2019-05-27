@@ -251,7 +251,7 @@ module Discord
     # All the activities for the status of the current user.
     enum Type
       Playing = 0
-      # This activity only has effect when a Twitch URL is given.
+      # This activity only has effect when `url` is a Twitch URL.
       Streaming = 1
       Listening = 2
       Watching = 3
