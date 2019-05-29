@@ -328,8 +328,8 @@ module Discord
     # Adds a reaction to a message. The `emoji` property must be in the format
     # `name:id` for custom emoji. For Unicode emoji it can simply be the UTF-8
     # encoded characters.
-    # Requires the "Read Message History" permission and
-    # the "Add Reactions" permission if nobody reacted with the emoji yet.
+    # Requires the "Read Message History" permission and additionally
+    # the "Add Reactions" permission if nobody reacted with this emoji yet.
     #
     # [API docs for this method](https://discordapp.com/developers/docs/resources/channel#create-reaction)
     def create_reaction(channel_id : UInt64 | Snowflake, message_id : UInt64 | Snowflake, emoji : String)
