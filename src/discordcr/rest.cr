@@ -644,7 +644,8 @@ module Discord
     # [API docs for this method](https://discordapp.com/developers/docs/resources/guild#create-guild)
     def create_guild(name : String, region : String? = nil, icon : String? = nil,
                      verification_level : UInt8? = nil, default_message_notifications : Int32? = nil,
-                     explicit_content_filter : Int32? = nil, roles : Array(PartialRole)? = nil, channels : Array(PartialChannel)? = nil)
+                     explicit_content_filter : Int32? = nil, roles : Array(GuildCreateRole)? = nil,
+                     channels : Array(PartialChannel)? = nil)
       json = encode_tuple(
         name: name,
         region: region,

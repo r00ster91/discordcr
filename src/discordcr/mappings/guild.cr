@@ -237,13 +237,13 @@ module Discord
     end
   end
 
-  struct PartialRole
+  struct GuildCreateRole
     include JSON::Serializable
 
     @[JSON::Field(key: "color")]
     property colour : UInt32?
 
-    def initialize(@id : Snowflake? = Discord::Snowflake.new(0),
+    def initialize(@id : Snowflake = Discord::Snowflake.new(0),
                    @name : String? = nil,
                    @colour : UInt32? = nil,
                    @hoist : Bool? = nil,
